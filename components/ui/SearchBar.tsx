@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/colors';
+import { Feather } from '@expo/vector-icons';
 
 interface SearchBarProps {
   value: string;
@@ -20,7 +21,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <View style={[styles.container, style]}>
-      <Icon name="search" size={20} color={Colors.gray[400]} style={styles.icon} />
+      <Feather name="search" size={20} color={Colors.gray[400]} style={styles.icon} />
       <TextInput
         style={styles.input}
         placeholder={placeholder}
@@ -31,7 +32,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       />
       {value.length > 0 && (
         <TouchableOpacity onPress={onClear} style={styles.clearButton}>
-          <Icon name="x" size={18} color={Colors.gray[500]} />
+          <Feather name="x" size={18} color={Colors.gray[500]} />
         </TouchableOpacity>
       )}
     </View>

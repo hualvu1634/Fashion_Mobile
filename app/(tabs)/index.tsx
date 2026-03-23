@@ -54,13 +54,7 @@ export default function HomeScreen() {
         {/* Tiêu đề Trang chủ + Tìm kiếm */}
         <View style={styles.searchWrapper}>
           <Text style={styles.title}>Trang chủ</Text>
-          <SearchBar
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            placeholder="Tìm kiếm sản phẩm..."
-            onClear={() => setSearchQuery('')}
-            style={styles.searchBar}
-          />
+      
         </View>
 
         <ScrollView

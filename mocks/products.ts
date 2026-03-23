@@ -4,7 +4,7 @@ import { PRODUCT_IMAGES } from "../constants/images";
 export const products: Product[] = [
   {
     id: "1",
-    name: "Oversized Cotton T-shirt",
+    name: "Oversized  T-shirt",
     brand: "H&M",
     price: 29.99,
     originalPrice: 39.99,
@@ -110,7 +110,7 @@ export const products: Product[] = [
   },
   {
     id: "6",
-    name: "Leather Crossbody Bag",
+    name: " Crossbody Bag",
     brand: "Michael Kors",
     price: 199.99,
     originalPrice: 249.99,

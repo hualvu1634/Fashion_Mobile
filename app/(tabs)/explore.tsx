@@ -26,10 +26,10 @@ export default function ExploreScreen() {
   const [showCategories, setShowCategories] = useState(!query);
 
   const filterOptions = [
-    { id: 'all', name: 'Tất cả' },
-    { id: 'new', name: 'Hàng mới về' },
-    { id: 'trending', name: 'Xu hướng' },
-    { id: 'sale', name: 'Đang giảm giá' },
+    // { id: 'all', name: 'Tất cả' },
+    // { id: 'new', name: 'Hàng mới về' },
+    // { id: 'trending', name: 'Xu hướng' },
+    // { id: 'sale', name: 'Đang giảm giá' },
   ];
 
   useEffect(() => {

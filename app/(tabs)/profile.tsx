@@ -11,7 +11,7 @@ import { Image } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons'; 
-import Icon from 'react-native-vector-icons/Feather';
+
 import Colors from '../../constants/colors'; 
 import { useAuthStore } from '../../store/useAuthStore';
 import { getOptimizedImageSource, getPlaceholderImage } from '../../utils/imageUtils';

@@ -7,6 +7,7 @@ import Colors from '../../constants/colors';
 import { getOptimizedImageSource } from '../../utils/imageUtils';
 import Icon from 'react-native-vector-icons/Feather';
 import { useFavoritesStore } from '../../store/useFavoritesStore';
+import { Feather } from '@expo/vector-icons';
 
 interface ProductCardProps {
   product: Product;
@@ -47,7 +48,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         style={styles.heartButton} 
         onPress={() => toggleFavorite(product)}
       >
-        <Icon 
+        <Feather 
           name="heart" 
           size={20} 
           color={isFav ? Colors.secondary : Colors.gray[400]} 

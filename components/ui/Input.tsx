@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../constants/colors';
+import { Feather } from '@expo/vector-icons';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -61,7 +62,7 @@ export const Input: React.FC<InputProps> = ({
             style={styles.iconContainer}
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
           >
-            <Icon
+            <Feather
               name={isPasswordVisible ? 'eye-off' : 'eye'}
               size={20}
               color={Colors.gray[500]}
