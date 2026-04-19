@@ -10,15 +10,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, Stack } from 'expo-router';
-import { SearchBar } from '../../components/ui/SearchBar';
 import { HomeBanner } from '../../components/home/HomeBanner';
-import { CategoryList } from '../../components/home/CategoryList';
 import { FeaturedProducts } from '../../components/home/FeaturedProducts';
 import Colors from '../../constants/colors';
 import { products } from '../../mocks/products';
-import { categories } from '../../mocks/categories';
 import { BANNER_IMAGES } from '../../constants/images';
-import FeaturedCategories from '../../components/home/FeaturedCategories';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -39,9 +35,9 @@ export default function HomeScreen() {
     setTimeout(() => setRefreshing(false), 1000);
   };
 
-  const newArrivals = [...products].sort(() => 0.5 - Math.random()).slice(0, 5);
-  const trending = [...products].sort(() => 0.5 - Math.random()).slice(0, 5);
-  const discounted = products.filter((p) => p.discount).slice(0, 5);
+  const newArrivals = [...products].sort(() => 0.5 - Math.random()).slice(0, 8);
+  const trending = [...products].sort(() => 0.5 - Math.random()).slice(0, 8);
+  const discounted = products.filter((p) => p.discount).slice(0, 8);
 
   return (
     <>
@@ -56,7 +52,14 @@ export default function HomeScreen() {
           <Text style={styles.title}>Trang chủ</Text>
       
         </View>
-
+{/* 
+          <SearchBar
+            value={searchQuery}
+            onChangeText={handleSearch}
+            placeholder="Tìm kiếm sản phẩm..."
+            style={styles.searchBar}
+            onClear={() => setSearchQuery('')}
+          /> */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
@@ -65,13 +68,13 @@ export default function HomeScreen() {
         >
           <HomeBanner
             title="Bộ sưu tập mùa hè"
-            subtitle="Giảm đến 50% cho các mặt hàng được chọn"
+            subtitle="Giảm 50% cho mọi mặt hàng"
             buttonText="Mua ngay"
             imageUrl={BANNER_IMAGES.summerCollection}
             link="/product/category/t-shirts"
           />
 
-          <FeaturedCategories />
+          {/* <FeaturedCategories /> */}
 
           <FeaturedProducts
             title="Hàng mới về"

@@ -79,7 +79,7 @@ export default function TabLayout() {
         options={{
           title: "",
           headerShown: false, // Ẩn header để xóa tiêu đề "Giỏ hàng"
-          tabBarIcon: ({ color }) => <CartIcon color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -87,6 +87,7 @@ export default function TabLayout() {
         options={{
           title: "",
           headerShown: false,
+          
           tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
         }}
       />

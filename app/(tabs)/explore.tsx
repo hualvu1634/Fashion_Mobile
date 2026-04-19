@@ -25,12 +25,6 @@ export default function ExploreScreen() {
   const [loading, setLoading] = useState(false);
   const [showCategories, setShowCategories] = useState(!query);
 
-  const filterOptions = [
-    // { id: 'all', name: 'Tất cả' },
-    // { id: 'new', name: 'Hàng mới về' },
-    // { id: 'trending', name: 'Xu hướng' },
-    // { id: 'sale', name: 'Đang giảm giá' },
-  ];
 
   useEffect(() => {
     if (query) {
@@ -106,7 +100,7 @@ export default function ExploreScreen() {
           />
 
           <FlatList
-            data={filterOptions}
+            data={null}
             keyExtractor={(item) => item.id}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -145,9 +139,9 @@ export default function ExploreScreen() {
             renderItem={({ item }) => (
               <CategoryCard category={item} style={styles.categoryCard} />
             )}
-            ListHeaderComponent={
-              <Text style={styles.sectionTitle}>Danh mục sản phẩm</Text>
-            }
+            // ListHeaderComponent={
+            //   <Text style={styles.sectionTitle}>Danh mục sản phẩm</Text>
+            // }
           />
         ) : (
           <FlatList

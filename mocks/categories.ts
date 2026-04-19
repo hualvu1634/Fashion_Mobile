@@ -45,9 +45,9 @@ export const categories: Category[] = [
     productCount: 70,
   },
   {
-    id: "activewear",
-    name: "Activewear",
-    image: CATEGORY_IMAGES.activewear,
+    id: "hats",
+    name: "Hats",
+    image: CATEGORY_IMAGES.hats,
     productCount: 90,
   }
 ];
