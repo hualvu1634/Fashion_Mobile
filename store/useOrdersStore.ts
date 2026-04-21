@@ -10,24 +10,22 @@ export type Order = {
   date: string;
   status: OrderStatus;
   total: number;
+  phone: string;     // Thêm sđt
+  address: string;   // Thêm địa chỉ
   items: Array<{ productId: string; quantity: number; price: number }>;
 };
 
 type OrdersStore = {
   orders: Order[];
-
   addOrder: (order: Order) => void;
   cancelOrder: (orderId: string) => void;
-
   saveToStorage: () => Promise<void>;
   loadFromStorage: () => Promise<void>;
   reset: () => void;
 };
 
 export const useOrdersStore = create<OrdersStore>((set, get) => ({
-  orders: [
-    
-  ],
+  orders: [],
 
   addOrder: (order: Order) => {
     set((state) => {
@@ -52,7 +50,7 @@ export const useOrdersStore = create<OrdersStore>((set, get) => ({
       const { orders } = get();
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
     } catch (e) {
-      console.error('Lỗi lưu orders store:', e);
+      console.error('Error saving orders store:', e);
     }
   },
 
@@ -70,6 +68,8 @@ export const useOrdersStore = create<OrdersStore>((set, get) => ({
               ? (o.status as OrderStatus)
               : 'Pending',
             total: Number(o.total),
+            phone: String(o.phone || ''),     // Lấy sđt
+            address: String(o.address || ''), // Lấy địa chỉ
             items: Array.isArray(o.items)
               ? o.items.map((item: any) => ({
                   productId: String(item.productId),
@@ -87,7 +87,7 @@ export const useOrdersStore = create<OrdersStore>((set, get) => ({
         set({ orders: [] });
       }
     } catch (e) {
-      console.error('Lỗi load orders store:', e);
+      console.error('Error loading orders store:', e);
       set({ orders: [] });
     }
   },
@@ -95,7 +95,7 @@ export const useOrdersStore = create<OrdersStore>((set, get) => ({
   reset: () => {
     set({ orders: [] });
     AsyncStorage.removeItem(STORAGE_KEY).catch((e) =>
-      console.error('Lỗi xóa orders trong AsyncStorage:', e)
+      console.error('Error clearing orders in AsyncStorage:', e)
     );
   },
 }));

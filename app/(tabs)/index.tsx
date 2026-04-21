@@ -21,14 +21,7 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      router.push({
-        pathname: '/explore',
-        params: { query: searchQuery },
-      });
-    }
-  };
+
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -41,25 +34,15 @@ export default function HomeScreen() {
 
   return (
     <>
-      {/* Ẩn header mặc định */}
       <Stack.Screen options={{ headerShown: false }} />
 
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
         <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
-        {/* Tiêu đề Trang chủ + Tìm kiếm */}
         <View style={styles.searchWrapper}>
-          <Text style={styles.title}>Trang chủ</Text>
-      
+          <Text style={styles.title}>Home</Text>
         </View>
-{/* 
-          <SearchBar
-            value={searchQuery}
-            onChangeText={handleSearch}
-            placeholder="Tìm kiếm sản phẩm..."
-            style={styles.searchBar}
-            onClear={() => setSearchQuery('')}
-          /> */}
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
@@ -67,30 +50,28 @@ export default function HomeScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <HomeBanner
-            title="Bộ sưu tập mùa hè"
-            subtitle="Giảm 50% cho mọi mặt hàng"
-            buttonText="Mua ngay"
+            title="Summer Collection"
+            subtitle="50% off on all items"
+            buttonText="Shop Now"
             imageUrl={BANNER_IMAGES.summerCollection}
             link="/product/category/t-shirts"
           />
 
-          {/* <FeaturedCategories /> */}
-
           <FeaturedProducts
-            title="Hàng mới về"
+            title="New Arrivals"
             products={newArrivals}
             viewAllLink="/explore?filter=new"
           />
 
           <FeaturedProducts
-            title="Xu hướng hiện nay"
+            title="Trending Now"
             products={trending}
             viewAllLink="/explore?filter=trending"
           />
 
           {discounted.length > 0 && (
             <FeaturedProducts
-              title="Đang giảm giá"
+              title="On Sale"
               products={discounted}
               viewAllLink="/explore?filter=sale"
             />

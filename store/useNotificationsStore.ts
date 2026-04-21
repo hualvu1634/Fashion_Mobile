@@ -15,8 +15,6 @@ type NotificationsStore = {
   notifications: Notification[];
   // THÊM HÀM NÀY
   addNotification: (notification: Omit<Notification, 'isRead'>) => void;
-  markAsRead: (id: string) => void;
-  deleteNotification: (id: string) => void;
   saveToStorage: () => Promise<void>;
   loadFromStorage: () => Promise<void>;
   reset: () => void;
@@ -35,23 +33,7 @@ export const useNotificationsStore = create<NotificationsStore>((set, get) => ({
     });
   },
 
-  markAsRead: (id: string) => {
-    set((state) => {
-      const newNotifications = state.notifications.map((notif) =>
-        notif.id === id ? { ...notif, isRead: true } : notif
-      );
-      get().saveToStorage();
-      return { notifications: newNotifications };
-    });
-  },
 
-  deleteNotification: (id: string) => {
-    set((state) => {
-      const newNotifications = state.notifications.filter((notif) => notif.id !== id);
-      get().saveToStorage();
-      return { notifications: newNotifications };
-    });
-  },
 
   saveToStorage: async () => {
     try {

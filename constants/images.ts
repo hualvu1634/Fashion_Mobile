@@ -7,9 +7,6 @@ export const BRAND_IMAGES = {
 
 export const BANNER_IMAGES = {
   summerCollection: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2124&auto=format&fit=crop",
-  winterCollection: "https://images.unsplash.com/photo-1577744486770-2a305020863d?q=80&w=2070&auto=format&fit=crop",
-  newArrivals: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop",
-  sale: "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?q=80&w=2070&auto=format&fit=crop",
 };
 
 export const CATEGORY_IMAGES = {

@@ -8,7 +8,7 @@ import { useCartStore } from "../../store/useCartStore";
 function TabBarIcon({ name, color }: { name: string; color: string }) {
   return (
     <View style={styles.iconWrapper}>
-      <Feather name ={name} size={24} color={color} />
+      <Feather name={name as any} size={24} color={color} />
     </View>
   );
 }
@@ -78,17 +78,17 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: "",
-          headerShown: false, // Ẩn header để xóa tiêu đề "Giỏ hàng"
+          headerShown: false, 
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
         }}
       />
+      {/* Đã thay đổi "favorites" thành "notifications" */}
       <Tabs.Screen
-        name="favorites"
+        name="notifications"
         options={{
           title: "",
           headerShown: false,
-          
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
         }}
       />
       <Tabs.Screen

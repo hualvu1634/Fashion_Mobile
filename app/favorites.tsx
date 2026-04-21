@@ -10,10 +10,10 @@ import {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ProductCard } from '../../components/ui/ProductCard'; 
-import Button from '../../components/ui/Button'; 
-import Colors from '../../constants/colors';
-import { useFavoritesStore } from '../../store/useFavoritesStore';
+import { ProductCard } from '../components/ui/ProductCard'; 
+import Button from '../components/ui/Button'; 
+import Colors from '../constants/colors';
+import { useFavoritesStore } from '../store/useFavoritesStore';
 import { Feather } from '@expo/vector-icons';
 
 export default function FavoritesScreen() {
@@ -28,18 +28,7 @@ export default function FavoritesScreen() {
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
       
-      <View style={styles.header}>
-        {/* Thêm nút quay lại */}
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Feather name="arrow-left" size={24} color={Colors.text} />
-        </TouchableOpacity>
-        <View style={styles.headerContent}>
-          <Text style={styles.title}>Yêu thích</Text>
-          <Text style={styles.subtitle}>
-            {favorites.length} {favorites.length === 1 ? 'sản phẩm' : 'sản phẩm'}
-          </Text>
-        </View>
-      </View>
+
       
       {favorites.length > 0 ? (
         <FlatList
@@ -57,12 +46,12 @@ export default function FavoritesScreen() {
       ) : (
         <View style={styles.emptyContainer}>
           <Feather name="heart" size={64} color={Colors.gray[300]} />
-          <Text style={styles.emptyTitle}>Chưa có sản phẩm yêu thích</Text>
+          <Text style={styles.emptyTitle}>No favorite products yet</Text>
           <Text style={styles.emptySubtitle}>
-            Lưu các sản phẩm yêu thích để xem lại sau.
+            Save your favorite products to view them later.
           </Text>
           <Button
-            title="Khám phá sản phẩm"
+            title="Explore products"
             onPress={handleContinueShopping}
             style={styles.continueButton}
           />

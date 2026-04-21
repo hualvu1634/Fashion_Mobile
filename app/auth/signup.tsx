@@ -11,7 +11,6 @@ import {
   Alert,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import Icon from 'react-native-vector-icons/Feather';
 import { Input } from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Colors from '../../constants/colors';

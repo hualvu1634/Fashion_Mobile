@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router'; // Thêm Stack để ẩn header mặc định
 import Icon from 'react-native-vector-icons/Feather';
-import Colors from '../constants/colors';
-import { useNotificationsStore } from '../store/useNotificationsStore';
+import Colors from '../../constants/colors';
+import { useNotificationsStore } from '../../store/useNotificationsStore';
 import { Feather } from '@expo/vector-icons';
 
 export default function NotificationsScreen() {
   const router = useRouter();
-  const { notifications, markAsRead, deleteNotification } = useNotificationsStore();
+  const { notifications } = useNotificationsStore();
 
   return (
     <>
@@ -42,16 +42,6 @@ export default function NotificationsScreen() {
                 <Text style={styles.notificationTitle}>{item.title}</Text>
                 <Text style={styles.notificationMessage}>{item.message}</Text>
                 <Text style={styles.notificationDate}>{item.date}</Text>
-              </View>
-              <View style={styles.notificationActions}>
-                {!item.isRead && (
-                  <TouchableOpacity onPress={() => markAsRead(item.id)}>
-                    <Feather name="check" size={20} color={Colors.primary} />
-                  </TouchableOpacity>
-                )}
-                <TouchableOpacity onPress={() => deleteNotification(item.id)} style={styles.actionIcon}>
-                  <Feather name="trash-2" size={20} color={Colors.error} />
-                </TouchableOpacity>
               </View>
             </View>
           )}

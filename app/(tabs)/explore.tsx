@@ -25,7 +25,6 @@ export default function ExploreScreen() {
   const [loading, setLoading] = useState(false);
   const [showCategories, setShowCategories] = useState(!query);
 
-
   useEffect(() => {
     if (query) {
       setSearchQuery(query);
@@ -86,15 +85,14 @@ export default function ExploreScreen() {
         <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
         <View style={styles.header}>
-          {/* Thêm tiêu đề "Khám phá" ở góc trên bên phải */}
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Khám phá</Text>
+            <Text style={styles.title}>Explore</Text>
           </View>
 
           <SearchBar
             value={searchQuery}
             onChangeText={handleSearch}
-            placeholder="Tìm kiếm sản phẩm..."
+            placeholder="Search products..."
             style={styles.searchBar}
             onClear={() => setSearchQuery('')}
           />
@@ -139,9 +137,6 @@ export default function ExploreScreen() {
             renderItem={({ item }) => (
               <CategoryCard category={item} style={styles.categoryCard} />
             )}
-            // ListHeaderComponent={
-            //   <Text style={styles.sectionTitle}>Danh mục sản phẩm</Text>
-            // }
           />
         ) : (
           <FlatList
@@ -154,9 +149,9 @@ export default function ExploreScreen() {
             )}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}>Không tìm thấy sản phẩm</Text>
+                <Text style={styles.emptyText}>No products found</Text>
                 <Text style={styles.emptySubtext}>
-                  Thử với từ khóa hoặc bộ lọc khác
+                  Try a different keyword or filter
                 </Text>
               </View>
             }
@@ -164,11 +159,11 @@ export default function ExploreScreen() {
               filteredProducts.length > 0 ? (
                 <View style={styles.resultsHeader}>
                   <Text style={styles.resultsText}>
-                    {filteredProducts.length} {filteredProducts.length === 1 ? 'kết quả' : 'kết quả'}
+                    {filteredProducts.length} {filteredProducts.length === 1 ? 'result' : 'results'}
                   </Text>
                   <TouchableOpacity style={styles.sortButton}>
                     <Feather name="filter" size={18} color={Colors.text} />
-                    <Text style={styles.sortText}>Sắp xếp</Text>
+                    <Text style={styles.sortText}>Sort</Text>
                   </TouchableOpacity>
                 </View>
               ) : null

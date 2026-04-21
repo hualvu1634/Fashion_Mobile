@@ -23,37 +23,35 @@ export default function ProfileScreen() {
 
   const handleLogout = async () => {
     await logout();
-   
   };
 
   const menuItems = [
     {
       id: 'orders',
-      title: 'Đơn hàng của tôi',
+      title: 'My Orders',
       icon: <Feather name="shopping-bag" size={20} color={Colors.gray[700]} />,
       onPress: () => router.push('../orders'),
     },
     {
       id: 'favorites',
-      title: 'Yêu thích',
+      title: 'Favorites',
       icon: <Feather name="heart" size={20} color={Colors.gray[700]} />,
       onPress: () => router.push('../favorites'),
     },
     {
       id: 'notifications',
-      title: 'Thông báo',
+      title: 'Notifications',
       icon: <Feather name="bell" size={20} color={Colors.gray[700]} />,
       onPress: () => router.push('../notifications'),
     },
     {
       id: 'help',
-      title: 'Trung tâm trợ giúp',
+      title: 'Help Center',
       icon: <Feather name="help-circle" size={20} color={Colors.gray[700]} />,
       onPress: () => router.push('../help-center'),
     },
   ];
 
-  // Nếu không có currentUser (trường hợp hiếm gặp do lỗi), không render gì cả
   if (!currentUser) return null;
 
   return (
@@ -61,7 +59,6 @@ export default function ProfileScreen() {
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
       <ScrollView showsVerticalScrollIndicator={false}>
         
-        {/* Phần thông tin cá nhân */}
         <View style={styles.profileSection}>
           {currentUser.avatar ? (
             <Image
@@ -82,7 +79,6 @@ export default function ProfileScreen() {
        
         </View>
 
-        {/* Menu chức năng */}
         <View style={styles.menuSection}>
           {menuItems.map(item => (
             <TouchableOpacity key={item.id} style={styles.menuItem} onPress={item.onPress}>
@@ -95,10 +91,9 @@ export default function ProfileScreen() {
           ))}
         </View>
 
-        {/* Nút đăng xuất */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Feather name="log-out" size={20} color={Colors.error} />
-          <Text style={styles.logoutText}>Đăng xuất</Text>
+          <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
 
       </ScrollView>

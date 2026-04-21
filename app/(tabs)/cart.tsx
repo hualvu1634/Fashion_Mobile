@@ -28,7 +28,7 @@ export default function CartScreen() {
   };
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 0 ? 5 : 0; // hoặc 0 nếu cart rỗng
+  const shipping = subtotal > 0 ? 5 : 0; 
   const total = subtotal + shipping;
 
   return (
@@ -38,7 +38,7 @@ export default function CartScreen() {
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Feather name="arrow-left" size={24} color={Colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Giỏ hàng</Text>
+        <Text style={styles.headerTitle}>Cart</Text>
         <Feather name="shopping-bag" size={24} color={Colors.primary} />
       </View>
 
@@ -49,7 +49,7 @@ export default function CartScreen() {
       >
         {items.length === 0 ? (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>Không có sản phẩm gì ở giỏ hàng</Text>
+            <Text style={styles.emptyText}>Your cart is empty</Text>
           </View>
         ) : (
           items.map((item) => (
@@ -66,7 +66,7 @@ export default function CartScreen() {
             shipping={shipping}
             total={total}
           />
-          <Button title="Thanh toán" onPress={handleCheckout} fullWidth />
+          <Button title="Checkout" onPress={handleCheckout} fullWidth />
         </View>
       )}
     </SafeAreaView>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
-    paddingBottom: 120, // để tránh bị footer che
+    paddingBottom: 120, 
   },
   emptyContainer: {
     flex: 1,

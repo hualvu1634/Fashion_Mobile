@@ -33,7 +33,7 @@ export default function App() {
     if (fontsLoaded) {
       // Preload important images
       const imagesToPreload = [
-        BRAND_IMAGES.logo,
+       
         BANNER_IMAGES.summerCollection,
         ...Object.values(CATEGORY_IMAGES).slice(0, 4)
       ];

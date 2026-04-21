@@ -9,8 +9,7 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import { Stack, useRouter } from 'expo-router'; // Thêm Stack để ẩn header mặc định
-import Icon from 'react-native-vector-icons/Feather';
+import { Stack, useRouter } from 'expo-router'; 
 import Colors from '../constants/colors';
 import { Feather } from '@expo/vector-icons'; 
 export default function HelpCenterScreen() {

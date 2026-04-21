@@ -27,7 +27,7 @@ export default function CheckoutScreen() {
   const [error, setError] = useState<string | null>(null);
   const [selectedShipping, setSelectedShipping] = useState('standard');
 
-  // --- STATE MỚI CHO ĐỊA CHỈ VÀ THANH TOÁN ---
+  const [phone, setPhone] = useState(''); // Thêm state lưu số điện thoại
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'Cash' | 'Card'>('Cash');
   const [cardDetails, setCardDetails] = useState('');
@@ -39,15 +39,14 @@ export default function CheckoutScreen() {
   const handlePlaceOrder = () => {
     setError(null);
 
-    // 1. Kiểm tra địa chỉ (Text)
-    if (!address.trim()) {
-      setError('Vui lòng nhập địa chỉ giao hàng để tiếp tục.');
+    // Kiểm tra thêm sđt
+    if (!phone.trim() || !address.trim()) {
+      setError('Please enter your phone number and delivery address to continue.');
       return;
     }
 
-    // 2. Kiểm tra phương thức thanh toán
     if (paymentMethod === 'Card' && !cardDetails.trim()) {
-      setError('Vui lòng nhập thông tin thẻ ngân hàng để tiếp tục.');
+      setError('Please enter your credit card information to continue.');
       return;
     }
 
@@ -60,6 +59,8 @@ export default function CheckoutScreen() {
       date: dateStr,
       status: 'Pending',
       total: total,
+      phone: phone,     // Truyền số điện thoại vào store
+      address: address, 
       items: items.map(i => ({
         productId: i.product.id,
         quantity: i.quantity,
@@ -69,8 +70,8 @@ export default function CheckoutScreen() {
 
     addNotification({
       id: Date.now().toString() + '_notif',
-      title: 'Đặt hàng thành công!',
-      message: `Đơn hàng #${orderId} trị giá $${total.toFixed(2)} đã được đặt thành công vào lúc ${currentTime}.`,
+      title: 'Order Placed Successfully!',
+      message: `Order #${orderId} worth $${total.toFixed(2)} was successfully placed at ${currentTime}.`,
       date: dateStr,
     });
     
@@ -80,7 +81,7 @@ export default function CheckoutScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Thanh toán' }} />
+      <Stack.Screen options={{ title: 'Checkout' }} />
       <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
 
       <View style={styles.container}>
@@ -95,17 +96,28 @@ export default function CheckoutScreen() {
             </View>
           )}
 
-          {/* --- PHẦN 1: ĐỊA CHỈ GIAO HÀNG --- */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <View style={styles.sectionTitleContainer}>
                 <Feather name="map-pin" size={20} color={Colors.primary} />
-                <Text style={styles.sectionTitle}>Địa chỉ nhận hàng</Text>
+                <Text style={styles.sectionTitle}>Delivery Information</Text>
               </View>
             </View>
 
+            {/* Input số điện thoại */}
+            <TextInput
+              style={[styles.textInput, { marginBottom: 12 }]}
+              placeholder="Phone Number"
+              placeholderTextColor={Colors.gray[400]}
+              keyboardType="phone-pad"
+              value={phone}
+              onChangeText={setPhone}
+            />
+
+            {/* Input địa chỉ */}
             <TextInput
               style={styles.textInputArea}
+              placeholder="Delivery Address"
               placeholderTextColor={Colors.gray[400]}
               multiline={true}
               numberOfLines={3}
@@ -114,12 +126,11 @@ export default function CheckoutScreen() {
             />
           </View>
 
-          {/* --- PHẦN 2: PHƯƠNG THỨC THANH TOÁN --- */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <View style={styles.sectionTitleContainer}>
                 <Feather name="credit-card" size={20} color={Colors.primary} />
-                <Text style={styles.sectionTitle}>Phương thức thanh toán</Text>
+                <Text style={styles.sectionTitle}>Payment Method</Text>
               </View>
             </View>
 
@@ -129,7 +140,7 @@ export default function CheckoutScreen() {
                 onPress={() => setPaymentMethod('Cash')}
               >
                 <Feather name="dollar-sign" size={18} color={paymentMethod === 'Cash' ? Colors.primary : Colors.gray[500]} />
-                <Text style={[styles.paymentBtnText, paymentMethod === 'Cash' && styles.paymentBtnTextActive]}>Tiền mặt</Text>
+                <Text style={[styles.paymentBtnText, paymentMethod === 'Cash' && styles.paymentBtnTextActive]}>Cash</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -137,33 +148,33 @@ export default function CheckoutScreen() {
                 onPress={() => setPaymentMethod('Card')}
               >
                 <Feather name="credit-card" size={18} color={paymentMethod === 'Card' ? Colors.primary : Colors.gray[500]} />
-                <Text style={[styles.paymentBtnText, paymentMethod === 'Card' && styles.paymentBtnTextActive]}>Thẻ ngân hàng</Text>
+                <Text style={[styles.paymentBtnText, paymentMethod === 'Card' && styles.paymentBtnTextActive]}>Credit Card</Text>
               </TouchableOpacity>
             </View>
 
             {paymentMethod === 'Card' && (
               <TextInput
                 style={[styles.textInput, { marginTop: 12 }]}
-              
+                placeholder="Card Details"
+                placeholderTextColor={Colors.gray[400]}
                 value={cardDetails}
                 onChangeText={setCardDetails}
               />
             )}
           </View>
 
-          {/* --- PHẦN 3: VẬN CHUYỂN (Giữ nguyên) --- */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <View style={styles.sectionTitleContainer}>
                 <Feather name="truck" size={20} color={Colors.primary} />
-                <Text style={styles.sectionTitle}>Vận chuyển</Text>
+                <Text style={styles.sectionTitle}>Shipping</Text>
               </View>
             </View>
 
             <View style={styles.optionsContainer}>
               {[
-                { id: 'standard', title: 'Tiêu chuẩn', price: 5.99, desc: '3-5 ngày' },
-                { id: 'express', title: 'Hỏa tốc', price: 9.99, desc: '1-2 ngày' },
+                { id: 'standard', title: 'Standard', price: 5.99, desc: '3-5 days' },
+                { id: 'express', title: 'Express', price: 9.99, desc: '1-2 days' },
               ].map((method) => (
                 <TouchableOpacity
                   key={method.id}
@@ -190,30 +201,28 @@ export default function CheckoutScreen() {
             </View>
           </View>
 
-          {/* --- PHẦN 4: TỔNG KẾT (Giữ nguyên) --- */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Chi tiết thanh toán</Text>
+            <Text style={styles.sectionTitle}>Order Summary</Text>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Tạm tính</Text>
+              <Text style={styles.summaryLabel}>Subtotal</Text>
               <Text style={styles.summaryValue}>${subtotal.toFixed(2)}</Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Phí vận chuyển</Text>
+              <Text style={styles.summaryLabel}>Shipping Fee</Text>
               <Text style={styles.summaryValue}>${shippingCost}</Text>
             </View>
             <View style={styles.divider} />
             <View style={styles.summaryRow}>
-              <Text style={styles.totalLabel}>Tổng cộng</Text>
+              <Text style={styles.totalLabel}>Total</Text>
               <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
             </View>
           </View>
         </ScrollView>
 
-        {/* NÚT THANH TOÁN (Giữ nguyên) */}
         <View style={styles.footer}>
           <Button
-            title={`Đặt hàng`}
+            title={`Place Order`}
             onPress={handlePlaceOrder}
             fullWidth
             disabled={items.length === 0} 
@@ -227,7 +236,7 @@ export default function CheckoutScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.gray[50],
+    backgroundColor: Colors.white,
   },
   errorContainer: {
     flexDirection: 'row',
@@ -273,7 +282,6 @@ const styles = StyleSheet.create({
     color: Colors.text,
     marginLeft: 8,
   },
-  // --- Style Mới cho Input và Nút Payment ---
   textInputArea: {
     borderWidth: 1,
     borderColor: Colors.gray[300],
@@ -281,8 +289,7 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 14,
     color: Colors.text,
-    backgroundColor: Colors.gray[50],
-    textAlignVertical: 'top',
+ backgroundColor: Colors.white,    textAlignVertical: 'top',
     height: 80,
   },
   textInput: {
@@ -292,7 +299,7 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 14,
     color: Colors.text,
-    backgroundColor: Colors.gray[50],
+     backgroundColor: Colors.white,
   },
   paymentButtonsContainer: {
     flexDirection: 'row',
@@ -322,7 +329,6 @@ const styles = StyleSheet.create({
   paymentBtnTextActive: {
     color: Colors.primary,
   },
-  // --- Giữ nguyên các Style cũ ở dưới ---
   optionsContainer: {
     gap: 12,
   },
@@ -330,8 +336,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.gray[50],
-    padding: 12,
+ backgroundColor: Colors.white,    padding: 12,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.gray[200],
