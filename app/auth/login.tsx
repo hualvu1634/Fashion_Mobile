@@ -8,16 +8,17 @@ import {
   Platform,
   ScrollView,
   StatusBar,
-  Alert
+  ImageBackground,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import Icon from 'react-native-vector-icons/Feather';
 import { Feather } from '@expo/vector-icons'; 
 import { Input } from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Colors from '../../constants/colors';
 import { useAuthStore } from '../../store/useAuthStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const BACKGROUND_IMAGE = "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&auto=format&fit=crop";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -62,108 +63,120 @@ export default function LoginScreen() {
     return isValid;
   };
 
- // Tìm hàm handleLogin và sửa đoạn router.replace:
+  const handleLogin = async () => {
+    if (!validateForm()) return;
 
-const handleLogin = async () => {
-  if (!validateForm()) return;
-
-  const token = await login(email, password);
-  if (token) {
-    try {
-      router.replace('/(tabs)'); 
-
-    } catch (e) {
-      console.error('Lỗi login:', e);
+    const token = await login(email, password);
+    if (token) {
+      try {
+        router.replace('/(tabs)'); 
+      } catch (e) {
+        console.error('Lỗi login:', e);
+      }
     }
-  }
-};
+  };
 
   const handleSignUp = () => router.push('/auth/signup');
 
-
   return (
     <>
-      <Stack.Screen options={{ title: 'Đăng nhập', headerShadowVisible: false }} />
-      <StatusBar barStyle="dark-content" backgroundColor={Colors.white} />
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
-      >
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Đăng nhập</Text>
+      <Stack.Screen 
+        options={{ 
+          title: '', 
+          headerTransparent: true, 
+          headerShadowVisible: false,
+        }} 
+      />
+      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      
+      <ImageBackground source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+        >
+          <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             
-          </View>
-
-          {error && (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
+            <View style={styles.header}>
+              <Text style={styles.title}>Đăng nhập</Text>
             </View>
-          )}
 
-          <View style={styles.form}>
-            <Input
-              label="Email"
-              placeholder="Nhập email của bạn"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              leftIcon={<Feather name="mail" size={20} color={Colors.gray[500]} />}
-              error={formErrors.email}
-            />
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
 
-            <Input
-              label="Mật khẩu"
-              placeholder="Nhập mật khẩu của bạn"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              isPassword
-              leftIcon={<Feather name="lock" size={20} color={Colors.gray[500]} />}
-              error={formErrors.password}
-            />
+            <View style={styles.form}>
+              <Input
+                label="Email"
+                labelStyle={{ color: 'white' }}
+                placeholder="Nhập email của bạn"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                leftIcon={<Feather name="mail" size={20} color={Colors.gray[500]} />}
+                error={formErrors.email}
+              />
 
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
-            </TouchableOpacity>
+              <Input
+                label="Mật khẩu"
+                labelStyle={{ color: 'white' }}
+                placeholder="Nhập mật khẩu của bạn"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                isPassword
+                leftIcon={<Feather name="lock" size={20} color={Colors.gray[500]} />}
+                error={formErrors.password}
+              />
 
-            <Button
-              title="Đăng nhập"
-              onPress={handleLogin}
-              fullWidth
-              loading={isLoading}
-              disabled={isLoading}
-              style={styles.loginButton}
-            />
+              <TouchableOpacity style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
+              </TouchableOpacity>
 
-          </View>
+              <Button
+                title="Đăng nhập"
+                onPress={handleLogin}
+                fullWidth
+                loading={isLoading}
+                disabled={isLoading}
+                style={styles.customButton}
+              />
+            </View>
 
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Chưa có tài khoản?</Text>
-            <TouchableOpacity onPress={handleSignUp}>
-              <Text style={styles.signUpText}>Đăng ký</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>Chưa có tài khoản?</Text>
+              <TouchableOpacity onPress={handleSignUp}>
+                <Text style={styles.signUpText}>Đăng ký</Text>
+              </TouchableOpacity>
+            </View>
+
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ImageBackground>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
-  scrollContent: { flexGrow: 1, padding: 24 },
-  header: { marginBottom: 32 },
-  title: { fontSize: 28, fontWeight: '700', color: Colors.text, marginBottom: 8,textAlign:"center" },
-  errorContainer: { backgroundColor: Colors.error + '20', padding: 12, borderRadius: 8, marginBottom: 16 },
+  backgroundImage: { flex: 1, width: '100%', height: '100%' },
+  container: { flex: 1 },
+  scrollContent: { flexGrow: 1, justifyContent: 'center', padding: 24 },
+  header: { marginBottom: 32, marginTop: 40 },
+  title: { fontSize: 32, fontWeight: '800', color: 'white', marginBottom: 8, textAlign: "center" },
+  errorContainer: { backgroundColor: 'rgba(255,255,255,0.2)', padding: 12, borderRadius: 8, marginBottom: 16 },
   errorText: { color: Colors.error, fontSize: 14 },
-  form: { marginBottom: 24 },
+  form: { marginBottom: 16 },
   forgotPassword: { alignSelf: 'flex-end', marginBottom: 24 },
-  forgotPasswordText: { color: Colors.primary, fontSize: 14 },
-  loginButton: { marginBottom: 16 },
-  footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 'auto', paddingVertical: 16 },
-  footerText: { color: Colors.gray[600], marginRight: 4 },
-  signUpText: { color: Colors.primary, fontWeight: '600' },
+  forgotPasswordText: { color: 'red', fontSize: 14, fontWeight: '600' },
+  customButton: { 
+    marginBottom: 16, 
+    backgroundColor: 'red', 
+    borderWidth: 0,
+  },
+  footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 8, paddingVertical: 16 },
+  footerText: { color: 'white', marginRight: 4, fontWeight: '500' },
+  signUpText: { color: 'red', fontWeight: '800' },
 });

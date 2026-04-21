@@ -5,6 +5,10 @@ export const BRAND_IMAGES = {
   splash: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2124&auto=format&fit=crop",
 };
 
+
+export const BACKGROUND = {
+  splash: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&auto=format&fit=crop",
+};
 export const BANNER_IMAGES = {
   summerCollection: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2124&auto=format&fit=crop",
 };
