@@ -5,7 +5,6 @@ import { Link } from 'expo-router';
 import { Product } from '../../types';
 import Colors from '../../constants/colors';
 import { getOptimizedImageSource } from '../../utils/imageUtils';
-import Icon from 'react-native-vector-icons/Feather';
 import { useFavoritesStore } from '../../store/useFavoritesStore';
 import { Feather } from '@expo/vector-icons';
 

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, Stack } from 'expo-router';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import { HomeBanner } from '../../components/home/HomeBanner';
 import { FeaturedProducts } from '../../components/home/FeaturedProducts';
 import Colors from '../../constants/colors';
@@ -83,7 +83,7 @@ export default function HomeScreen() {
           onPress={() => router.push('/chat')}
           activeOpacity={0.8}
         >
-          <Feather name="message-circle" size={26} color={Colors.white} />
+          <Ionicons name="chatbubble-ellipses" size={26} color={Colors.white} />
         </TouchableOpacity>
       </SafeAreaView>
     </>
