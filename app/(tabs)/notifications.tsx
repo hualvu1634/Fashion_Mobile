@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import { Stack, useRouter } from 'expo-router'; // Thêm Stack để ẩn header mặc định
-import Icon from 'react-native-vector-icons/Feather';
+import { Stack, useRouter } from 'expo-router'; 
 import Colors from '../../constants/colors';
 import { useNotificationsStore } from '../../store/useNotificationsStore';
 import { Feather } from '@expo/vector-icons';
@@ -30,7 +29,7 @@ export default function NotificationsScreen() {
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
             <Feather name="arrow-left" size={24} color={Colors.text} />
           </TouchableOpacity>
-          <Text style={styles.title}>Thông báo</Text>
+          <Text style={styles.title}>Notifications</Text>
         </View>
 
         <FlatList

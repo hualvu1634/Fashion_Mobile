@@ -91,6 +91,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
         }}
       />
+          <Tabs.Screen
+        name="chatbot"
+        options={{
+          title: "",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="messenger" color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="profile"
         options={{

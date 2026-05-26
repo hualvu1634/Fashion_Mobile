@@ -7,9 +7,11 @@ import {
   StyleSheet,
   Platform,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, Stack } from 'expo-router';
+import { Feather } from '@expo/vector-icons';
 import { HomeBanner } from '../../components/home/HomeBanner';
 import { FeaturedProducts } from '../../components/home/FeaturedProducts';
 import Colors from '../../constants/colors';
@@ -20,8 +22,6 @@ export default function HomeScreen() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
-
-
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -77,6 +77,14 @@ export default function HomeScreen() {
             />
           )}
         </ScrollView>
+
+        <TouchableOpacity 
+          style={styles.fab} 
+          onPress={() => router.push('/chat')}
+          activeOpacity={0.8}
+        >
+          <Feather name="message-circle" size={26} color={Colors.white} />
+        </TouchableOpacity>
       </SafeAreaView>
     </>
   );
@@ -113,5 +121,22 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 20,
     paddingHorizontal: 0,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 5,
+    elevation: 5,
+    zIndex: 100, // Đảm bảo nút luôn nổi trên ScrollView
   },
 });
